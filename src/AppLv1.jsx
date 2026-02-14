@@ -6,7 +6,7 @@ import "./sass/all.scss";
 import Login from './views/Login';
 import Navbar from './components/Navbar';
 import ProductTable from './components/ProductTable';
-import ProductModal from './components/productModal';
+import ProductModal from './components/ProductModal';
 import Pagination from './components/Pagination';
 
 const API_BASE = import.meta.env.VITE_API_BASE;

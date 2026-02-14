@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -13,6 +13,8 @@ function ProductModal ( {
 } ) {
   // 避免污染到根元件中的原始資料
   const [ tempProduct, setTempProduct ] = useState(templateProduct);
+  // 參考檔案上傳 input，好在需要時能夠清空其值
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     setTempProduct(templateProduct);
@@ -20,6 +22,12 @@ function ProductModal ( {
 
   const handleModalInputChange = (e) => {
     const { name, value, type, checked } = e.target;
+    // 當使用者清空主圖的網址時，同步清除檔案上傳 input 的檔名/值
+    if (name === "imageUrl" && value === "") {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
     setTempProduct( prevData => {
       if ( name === "story_title" || name === "story_content") {
         return {
@@ -101,7 +109,7 @@ function ProductModal ( {
         imageUrl:uploadImageUrl
       }))
     } catch (error) {
-      console.log(error?.message);
+      console.log(error?.response?.data?.message);
     }
   }
 
@@ -131,7 +139,7 @@ function ProductModal ( {
       getProducts();
       closeModal();
     } catch (error) {
-      alert(error.message);
+      alert(error?.response?.data?.message);
     }
   }
 
@@ -141,7 +149,7 @@ function ProductModal ( {
       getProducts();
       closeModal();
     } catch (error) {
-      alert(error.response);
+      alert(error?.response?.data?.message);
     }
   }
 
@@ -185,6 +193,7 @@ function ProductModal ( {
                           className="form-control"
                           name="fileUpload" 
                           id="fileUpload"
+                          ref={fileInputRef}
                           onChange={ (e) => uploadImage(e) }
                         />
                       </div>
@@ -297,6 +306,7 @@ function ProductModal ( {
                           name="origin_price"
                           type="number"
                           className="form-control"
+                          min="0"
                           placeholder="請輸入原價" 
                           value={ tempProduct.origin_price }
                           onChange={ handleModalInputChange }
@@ -309,6 +319,7 @@ function ProductModal ( {
                           name="price"
                           type="number"
                           className="form-control"
+                          min="0"
                           placeholder="請輸入售價"
                           value={ tempProduct.price }
                           onChange={ handleModalInputChange }
@@ -331,7 +342,7 @@ function ProductModal ( {
                     <hr />
                     <h5 className="h6 mb-3">商品故事</h5>
                     <div className="mb-3">
-                      <label htmlFor="content.title" className="form-label">故事標題</label>
+                      <label htmlFor="story_title" className="form-label">故事標題</label>
                       <input 
                         id="story_title"
                         name="story_title"
@@ -342,7 +353,7 @@ function ProductModal ( {
                         onChange={ handleModalInputChange } />
                     </div>
                     <div className="mb-3">
-                      <label htmlFor="content" className="form-label">故事內容</label>
+                      <label htmlFor="story_content" className="form-label">故事內容</label>
                       <textarea
                         id="story_content"
                         name="story_content"
