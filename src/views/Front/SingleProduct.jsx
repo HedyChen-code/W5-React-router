@@ -78,8 +78,8 @@ const SingleProduct = () => {
               </div>
               <h5 className="bg-secondary px-2 py-1 mb-3">商品故事</h5>
               <div className="mb-3 px-2">
-                <h6 className="card-title">{tempProduct.content.story_title}</h6>
-                <p className="card-subtitle mb-2 text-body-secondary">「{tempProduct.content.story_content}」</p>
+                <h6 className="card-title">{tempProduct?.content?.story_title}</h6>
+                <p className="card-subtitle mb-2 text-body-secondary">「{tempProduct?.content?.story_content}」</p>
               </div>
               <hr/>
               <div>
