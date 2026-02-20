@@ -20,7 +20,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
-  }, [products])
+  }, [])
 
   return (<>
     <div className="container">

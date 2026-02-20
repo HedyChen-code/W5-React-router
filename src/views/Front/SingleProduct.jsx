@@ -11,19 +11,34 @@ const SingleProduct = () => {
   const { id } = params;
   
 
-  const handleViewMore = async (id) => {
+  const getSingleProduct = async (id) => {
     try {
       const url = `${API_BASE}/api/${API_PATH}/product/${id}`;
       const res = await axios.get(url);
       setTempProduct(res.data.product);
     } catch (error) {
-      console.log('取得產品資料失敗：', error);
+      alert('取得產品資料失敗：', error);
     }
   }
 
   useEffect(() => {
-    handleViewMore(id);
-  }, [])
+    getSingleProduct(id);
+  }, [id]);
+
+  const addCart = async (id, qty=1) => {
+    const data = {
+      product_id: id,
+      qty
+    };
+    try {
+      const url = `${API_BASE}/api/${API_PATH}/cart`;
+      const res = await axios.post(url, { data });
+      console.log(res);
+      alert('加入購物車成功！')
+    } catch (error) {
+      alert('加入購物車失敗：', error?.response?.data);
+    }
+  }
 
   return (<>
     <div className="container">
@@ -83,7 +98,13 @@ const SingleProduct = () => {
               </div>
               <hr/>
               <div>
-                <button type="button" className="btn btn-outline-primary me-2">加入購物車</button>
+                <button 
+                  type="button" 
+                  className="btn btn-outline-primary me-2" 
+                  onClick={ () => addCart(id) }
+                >
+                  加入購物車
+                </button>
                 <button type="button" className="btn btn-primary">直接購買</button>
               </div>
             </div>

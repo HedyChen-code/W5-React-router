@@ -436,7 +436,7 @@ $position-values: (
 // Settings for the `<body>` element.
 
 $body-text-align:           null !default;
-$body-color:                #3F3F3F;//$gray-900 !default;
+$body-color:                #4A4641;//$gray-900 !default;
 $body-bg:                   #F2EFE9;// $white !default;
 
 $body-secondary-color:      #a29f9b;// rgba($body-color, .75) !default;
@@ -752,7 +752,7 @@ $table-active-bg:             rgba(var(--#{$prefix}emphasis-color-rgb), $table-a
 
 $table-hover-color:           $table-color !default;
 $table-hover-bg-factor:       .075 !default;
-$table-hover-bg:              rgba($body-bg, .70); // rgba(var(--#{$prefix}emphasis-color-rgb), $table-hover-bg-factor) !default;
+$table-hover-bg:              rgba($secondary, 0.30); // rgba($body-bg, 0.70); // rgba(var(--#{$prefix}emphasis-color-rgb), $table-hover-bg-factor) !default;
 
 $table-border-factor:         .2 !default;
 $table-border-width:          var(--#{$prefix}border-width) !default;
@@ -777,7 +777,7 @@ $table-variants: (
   "warning":    shift-color($warning, $table-bg-scale),
   "danger":     shift-color($danger, $table-bg-scale),
   "light":      $light,
-  "dark":       $dark,
+  "dark":       #b9b5b18e, // $dark,
 ) !default;
 // scss-docs-end table-loop
 
